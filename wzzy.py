@@ -1,18 +1,24 @@
 # coding=utf-8
 #V1.0
-#import sys 
-#reload(sys) 
-#sys.setdefaultencoding('utf8')
-
 import streamlit as st
 import numpy as np
 import pandas as pd
 
+
 qzyz = 0.2    #权重因子0-1，就是在一串症状中，有多少比例的症状是有效的
 
-st.title("中医AI问诊V1.0")
+st.title("中医AI问诊V1.1")
+
+import os
+path_list = os.listdir()
+path_name=[]
+for i in path_list:
+	if i.split(".")[1] == 'xlsx':
+		path_name.append(i.split(".")[0])
+zhuanjiaXZ=st.selectbox('请选择一个专家AI:',(path_name))
+zhuangjiaXZ_file=str(zhuanjiaXZ)+'.xlsx'
 from openpyxl import load_workbook
-wb = load_workbook("zzb.xlsx")
+wb = load_workbook(zhuangjiaXZ_file)
 Sheet1 = wb["Sheet1"]
 zhenzhuang=set()
 st.write(Sheet1.cell(1,1).value)
@@ -28,6 +34,7 @@ zhenzhuanglist.sort()
 zhenzhuangXZ = st.multiselect(
 	'选择你的症状（多选）：',(zhenzhuanglist))
 zhenzhuangXZ_set=set(zhenzhuangXZ)
+
 
 
 #开始症状分析
