@@ -1,5 +1,4 @@
 # coding=utf-8
-#V1.0
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -26,7 +25,7 @@ qzyz = Sheet1.cell(1,12).value     #从表中读取权重因子
 if qzyz <0 or qzyz>1 :
 	qzyz =0.2
 for i in range(3,Sheet1.max_row+1):
-	for j in range(1,10):
+	for j in range(1,11):
 		zhenzhuang.add(Sheet1.cell(i,j).value)
 zhenzhuang.discard(None)
 zhenzhuanglist=list(zhenzhuang)
@@ -43,7 +42,7 @@ yaofang=set()
 zhenduan=set()
 quanzhong=[0,0,0] #症状对应每个方剂的权重
 for i in range(3,Sheet1.max_row+1):
-	for j in range(1,10):
+	for j in range(1,11):
 		zhenzhuangGL.add(Sheet1.cell(i,j).value)
 	zhenzhuangGL.discard(None)
 	z = zhenzhuangGL.intersection(zhenzhuangXZ_set)   #两个集合的交集
@@ -91,6 +90,7 @@ else:
 	st.write('诊断及建议: ')
 	st.write(str.join(zhenduan_list))
 	st.write('建议中药：',str.join(yaofang_list))
+	st.write('中药剂量及服用有严格的要求，请在合格中医师指导下进行，我们不对服用中药后引起的任何后果负责')
 
 
 #© 2020 GitHub, Inc.
