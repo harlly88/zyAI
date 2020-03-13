@@ -2,8 +2,8 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-
-
+#下面一行为飞龙添加用于显示当前循行的经脉和穴位
+from acupuncture import Acupuncture
 qzyz = 0.2    #权重因子0-1，就是在一串症状中，有多少比例的症状是有效的
 
 st.title("中医AI问诊V2.0")
@@ -139,6 +139,8 @@ else:
 	st.write(str.join(zhenduan_list))
 	st.write('建议中药：',str.join(yaofang_list))
 	st.write('*中药剂量及服用有严格的要求，请在合格中医师指导下进行，我们不对服用中药后引起的任何后果负责')
-
+	#下面一行为用于显示当前循行的经脉及穴位链接
+	ac = Acupuncture()
+	st.write(ac.getCurrentJingMaiXueWeiLink（）)
 
 #© 2020 GitHub, Inc.
