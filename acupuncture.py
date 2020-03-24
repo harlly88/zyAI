@@ -3,6 +3,8 @@ from datetime import datetime
 根据疾病情况得出穴位按摩处方
 
 '''
+import os
+os.environ['TZ']='Asia/Shanghai'
 import webbrowser
 
 

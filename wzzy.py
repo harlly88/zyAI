@@ -2,19 +2,29 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+
+# v23 飞龙增加了当前循行的经脉和穴位
+# v22 进一步更新界面
+# v21 更新了界面
+# v20 更新了药方用量
+# V12 使用 了新的匹配方法，可以用execl表格输入专家AI
+
+
 #下面一行为飞龙添加用于显示当前循行的经脉和穴位
 from acupuncture import Acupuncture
 qzyz = 0.2    #权重因子0-1，就是在一串症状中，有多少比例的症状是有效的
 
-st.title("中医AI问诊V2.0")
+st.title("中医AI问诊V2.3")
 
 import os
 path_list = os.listdir()
-path_name=[]
+path_name= list()
 for i in path_list:
-	if i.split(".")[1] == 'xlsx':
-		path_name.append(i.split(".")[0])
-zhuanjiaXZ=st.selectbox('请选择一个专家AI:',(path_name))
+	if '.' in i:
+		if i.split(".")[1] == 'xlsx':
+			path_name.append(i.split(".")[0])
+#zhuanjiaXZ=st.selectbox('请选择一个专家AI:',(path_name))
+zhuanjiaXZ=st.radio('请选择一个专家AI:',(path_name))
 zhuangjiaXZ_file=str(zhuanjiaXZ)+'.xlsx'
 from openpyxl import load_workbook
 wb = load_workbook(zhuangjiaXZ_file)
@@ -30,11 +40,20 @@ for i in range(3,Sheet1.max_row+1):
 zhenzhuang.discard(None)
 zhenzhuanglist=list(zhenzhuang)
 zhenzhuanglist.sort()
+zhenzhuangXZ=set()
+
 zhenzhuangXZ = st.multiselect(
 	'选择你的症状（多选）：',(zhenzhuanglist))
-zhenzhuangXZ_set=set(zhenzhuangXZ)
 
 
+#st.write('选择你的症状（多选）：')
+#for i in zhenzhuanglist:
+#	if st.checkbox(i):
+#		zhenzhuangXZ.add(i)
+		
+zhenzhuangXZ_set=set(zhenzhuangXZ)		
+#st.write("你选择的症状：")
+#st.write(zhenzhuangXZ_set)
 
 #开始症状分析
 zhenzhuangGL=set()
@@ -140,7 +159,7 @@ else:
 	st.write('建议中药：',str.join(yaofang_list))
 	st.write('*中药剂量及服用有严格的要求，请在合格中医师指导下进行，我们不对服用中药后引起的任何后果负责')
 	#下面一行为用于显示当前循行的经脉及穴位链接
-	ac = Acupuncture()
-	st.write(ac.getCurrentJingMaiXueWeiLink（）)
+ac = Acupuncture()
+st.markdown(ac.getCurrentJingMaiXueWeiLink(),unsafe_allow_html=True)
 
 #© 2020 GitHub, Inc.
