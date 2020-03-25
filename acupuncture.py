@@ -3,8 +3,7 @@ from datetime import datetime
 根据疾病情况得出穴位按摩处方
 
 '''
-import os
-os.environ['TZ']='Asia/Shanghai'
+
 import webbrowser
 
 
@@ -119,7 +118,9 @@ class Acupuncture(object):
             计算当前天干地支
         
         '''
-        current = datetime.now()
+        import pytz
+        tz = pytz.timezone('Asia/Shanghai')
+        current = datetime.now(tz)
         hour = current.hour
         
         if hour <1 or hour>=23 :
