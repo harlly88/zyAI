@@ -15,8 +15,8 @@
 
 ## 产品现状：
 基本模型已经已经出来了，经过三次迭代，已经可以上线访问。
-临时网址：http://go168.shop
-开源地址：https://github.com/harlly88/zyAI
+网址：http://www.jtkf.com/ai
+开源地址：https://github.com/harlly88/zyAI/
 
 ## 希望达到的效果：
 * 能在微信小程序中运行，让大家更易用。
